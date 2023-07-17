@@ -12,7 +12,7 @@ const app = express()
 app.use(express.json())
 const PORT = 4444
 app.get('/', (req, res) => {
-    res.send("Hello world!")
+    res.send("Hello my new world!")
 })
 
 
