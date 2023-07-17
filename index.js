@@ -1,18 +1,19 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import mongoose from "mongoose";
+import mongoose, {Mongoose} from "mongoose";
 
 
-mongoose.connect('mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {console.log('DB IS CONNECTED')})
     .catch((err)=>{
         console.log("DB IS FAILED", err)
     })
 const app = express()
 app.use(express.json())
-const PORT = 4444
+const PORT = process.env.PORT || 4444
+// 'mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/?retryWrites=true&w=majority'
 app.get('/', (req, res) => {
-    res.send("Hello my new world!")
+    res.send("Hello world!")
 })
 
 
