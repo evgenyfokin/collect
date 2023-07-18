@@ -26,6 +26,10 @@ app.post('/auth/register', registerValidation, register)
 app.post('/auth/login', loginValidation, login)
 app.get('/auth/me', checkAuth, getMe)
 
+app.use(function(err, req, res, next) {
+    console.error(err.stack); // Логирует стек вызова ошибки
+    res.status(500).send('Something broke!');
+});
 
 app.listen(PORT, (err) => {
     if (err) {
