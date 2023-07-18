@@ -14,8 +14,8 @@ mongoose.connect(process.env.MONGODB_URI ||
         console.log("DB IS FAILED", err)
     })
 const app = express()
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
 const PORT = process.env.PORT || 3004
 app.get('/', (req, res) => {
     res.send("Hello world!")
