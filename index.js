@@ -1,37 +1,29 @@
 import express from 'express'
-import jwt from 'jsonwebtoken'
 import mongoose from "mongoose";
+import {loginValidation, registerValidation} from "./validations.js";
+import checkAuth from "./utils/auth.js";
+import {getMe, login, register} from "./controllers/UserController.js";
 
 
-mongoose.connect('mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/?retryWrites=true&w=majority')
-    .then(() => {console.log('DB IS CONNECTED')})
-    .catch((err)=>{
+mongoose.connect(process.env.MONGODB_URI ||
+    'mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority')
+    .then(() => {
+        console.log('DB IS CONNECTED')
+    })
+    .catch((err) => {
         console.log("DB IS FAILED", err)
     })
 const app = express()
 app.use(express.json())
-const PORT = 4444
+const PORT = process.env.PORT || 4444
 app.get('/', (req, res) => {
     res.send("Hello my new world!")
 })
 
 
-
-app.post('/auth/login', (req,res) => {
-    console.log(req.body)
-
-    const token = jwt.sign({
-        email: req.body.email,
-        fullName: 'Fokin Eugene'
-    }, 'secret123')
-
-    res.json({
-        success: true,
-        token
-    })
-})
-
-
+app.post('/auth/register', registerValidation, register)
+app.post('/auth/login', loginValidation, login)
+app.get('/auth/me', checkAuth, getMe)
 
 
 app.listen(PORT, (err) => {
