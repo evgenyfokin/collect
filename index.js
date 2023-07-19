@@ -4,9 +4,8 @@ import {loginValidation, registerValidation} from "./validations.js";
 import checkAuth from "./utils/auth.js";
 import {getMe, login, register} from "./controllers/UserController.js";
 import cors from 'cors'
-
-mongoose.connect(process.env.MONGODB_URI ||
-    'mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority')
+// 'mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority'
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('DB IS CONNECTED')
     })
@@ -15,7 +14,7 @@ mongoose.connect(process.env.MONGODB_URI ||
     })
 const app = express()
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://ireact-ten.vercel.app"); // ваш URL
+    res.header("Access-Control-Allow-Origin", "https://ireact-ten.vercel.app");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
     next();
