@@ -30,7 +30,7 @@ export const register = async (req, res) => {
     } catch (err) {
         console.error(err)
         res.status(500).json({
-            message: "Failed to register"
+            message: err.message
         })
     }
 }
@@ -61,9 +61,9 @@ export const login = async (req, res) => {
             token
         })
     } catch (err) {
-        console.log(err)
+        console.error(err)
         res.status(500).json({
-            message: "Failed to login"
+            message: err.message
         })
     }
 }
