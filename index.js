@@ -14,11 +14,12 @@ mongoose.connect(process.env.MONGODB_URI ||
         console.log("DB IS FAILED", err)
     })
 const app = express()
-app.use(cors({
-    origin: ['https://collectt.vercel.app'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://ireact-ten.vercel.app"); // ваш URL
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    next();
+});
 app.use(express.json())
 const PORT = process.env.PORT || 3004
 app.get('/', (req, res) => {
