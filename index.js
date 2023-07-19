@@ -6,7 +6,7 @@ import {getMe, login, register} from "./controllers/UserController.js";
 // 'mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority'
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
-        console.log('DB IS CONNECTED')
+        console.log('DB CONNECTED')
     })
     .catch((err) => {
         console.log("DB IS FAILED", err)
