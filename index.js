@@ -15,6 +15,7 @@ const app = express()
 app.use(cors({
     origin: 'https://ireact-ten.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: 'include',
     preflightContinue: false,
     optionsSuccessStatus: 204
 }));
