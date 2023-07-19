@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import {loginValidation, registerValidation} from "./validations.js";
 import checkAuth from "./utils/auth.js";
 import {getMe, login, register} from "./controllers/UserController.js";
-import cors from 'cors'
 // 'mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority'
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
