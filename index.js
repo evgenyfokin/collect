@@ -13,7 +13,10 @@ mongoose.connect(process.env.MONGODB_URI)
     })
 const app = express()
 app.use(cors({
-    origin: "https://ireact-ten.vercel.app"
+    origin: 'https://ireact-ten.vercel.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 }));
 app.use(express.json())
 const PORT = process.env.PORT || 3004
