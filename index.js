@@ -6,13 +6,14 @@ import {getMe, login, register} from "./controllers/UserController.js";
 import cors from "cors";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
-mongoose.connect(process.env.MONGODB_URI)
+await mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('DB CONNECTED')
     })
     .catch((err) => {
         console.log("DB IS FAILED", err)
     })
+
 
 const app = express()
 
@@ -35,7 +36,7 @@ app.post('/auth/login', loginValidation, login)
 app.get('/auth/me', checkAuth, getMe)
 
 app.use('/api', createProxyMiddleware({
-    target: 'https://fokin-collections-80e49a476c50.herokuapp.com', // Здесь ваша целевая ссылка
+    target: 'https://fokin-collections-80e49a476c50.herokuapp.com',
     changeOrigin: true,
     pathRewrite: {
         '^/api': '', // убираем /api из пути запроса
