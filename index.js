@@ -14,11 +14,7 @@ mongoose.connect(process.env.MONGODB_URI ||
         console.log("DB IS FAILED", err)
     })
 const app = express()
-app.use(cors({
-    origin: ['https://collectt.vercel.app'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.options('*', cors())
 app.use(express.json())
 const PORT = process.env.PORT || 3004
 app.get('/', (req, res) => {
