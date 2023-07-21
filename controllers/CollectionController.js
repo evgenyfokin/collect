@@ -69,7 +69,7 @@ export const update = async (req, res) => {
             _id: collectionId,
         }, {
             title: req.body.title,
-            text: req.body.text,
+            desc: req.body.desc,
             imageUrl: req.body.imageUrl,
             user: req.userId,
         })
