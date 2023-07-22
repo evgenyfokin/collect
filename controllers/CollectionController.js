@@ -32,7 +32,7 @@ export const getOne = async (req, res) => {
 export const remove = async (req, res) => {
     try {
         const collectionId = req.params.id
-        const removedCollection = await CollectionModel.findOneAndDelete(collectionId)
+        const removedCollection = await CollectionModel.findOneAndDelete({_id: collectionId})
         if (!removedCollection) {
             return res.status(404).json({
                 message: "Here is nothing to remove"
