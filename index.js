@@ -11,33 +11,33 @@ import * as ItemController from "./controllers/itemController.js";
 import multer from 'multer'
 
 
-// await mongoose.connect('mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority')
-//     .then(() => {
-//         console.log('DB CONNECTED')
-//     })
-//     .catch((err) => {
-//             console.log("DB IS FAILED", err)
-//         }
-//     )
-await mongoose.connect(process.env.MONGODB_URI)
+await mongoose.connect('mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority')
     .then(() => {
         console.log('DB CONNECTED')
     })
     .catch((err) => {
-        console.log("DB IS FAILED", err)
-    })
+            console.log("DB IS FAILED", err)
+        }
+    )
+// await mongoose.connect(process.env.MONGODB_URI)
+//     .then(() => {
+//         console.log('DB CONNECTED')
+//     })
+//     .catch((err) => {
+//         console.log("DB IS FAILED", err)
+//     })
 
 
 const app = express()
 
-app.use(cors({
-    origin: 'https://ireact-pi.vercel.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: 'include',
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-}));
-// app.use(cors())
+// app.use(cors({
+//     origin: 'https://ireact-pi.vercel.app',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: 'include',
+//     preflightContinue: false,
+//     optionsSuccessStatus: 204
+// }));
+app.use(cors())
 
 app.use(express.json())
 
