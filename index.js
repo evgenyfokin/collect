@@ -8,7 +8,6 @@ import {createProxyMiddleware} from 'http-proxy-middleware';
 import * as CollectionController from "./controllers/CollectionController.js";
 import handleValidationError from "./utils/handleValidationError.js";
 import * as ItemController from "./controllers/itemController.js";
-import multer from 'multer'
 
 
 await mongoose.connect('mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority')
