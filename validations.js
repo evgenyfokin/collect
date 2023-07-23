@@ -14,5 +14,5 @@ export const registerValidation = [
 export const collectionCreateValidation = [
     body('title', "Enter article title").isLength({min: 3}).isString(),
     body('desc', "Enter article description").isLength({min: 10}).isString(),
-    // body('imageUrl', "Неверная ссылка на изображение").optional().isString(),
+    body('imageUrl', "Invalid image").optional().isString(),
 ]

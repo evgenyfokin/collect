@@ -1,4 +1,5 @@
 import express from 'express'
+import multer from 'multer'
 import mongoose from "mongoose";
 import {collectionCreateValidation, loginValidation, registerValidation} from "./validations.js";
 import checkAuth from "./utils/auth.js";
@@ -8,7 +9,6 @@ import {createProxyMiddleware} from 'http-proxy-middleware';
 import * as CollectionController from "./controllers/CollectionController.js";
 import handleValidationError from "./utils/handleValidationError.js";
 import * as ItemController from "./controllers/itemController.js";
-import expressUpload from 'express-fileupload'
 import aws from 'aws-sdk'
 
 // await mongoose.connect('mongodb+srv://admin:Netflix2024@cluster0.fknd4ao.mongodb.net/collections?retryWrites=true&w=majority')
@@ -25,11 +25,15 @@ await mongoose.connect(process.env.MONGODB_URI)
     })
     .catch((err) => {
         console.log("DB IS FAILED", err)
-    })
+    }
+    )
 
 
 const app = express()
-const fileUpload = expressUpload
+const multerUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: 50 * 1024 * 1024
+})
 const AWS = aws
 AWS.config.update({region: 'eu-north-1'})
 app.use(cors({
@@ -41,11 +45,7 @@ app.use(cors({
 }));
 // app.use(cors())
 app.use(express.json())
-app.use(fileUpload({
-    limits: {
-        fileSize: 50 * 1024 * 1024
-    }
-}))
+
 const AWS_KEY = 'AKIAR5XF5BIOFB3KPKVB'
 const AWS_SECRET = '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'
 
@@ -56,21 +56,19 @@ const s3 = new AWS.S3({
     }
 })
 
-app.post('/', async (req, res) => {
-    console.log(req.files.name)
+app.post('/upload', checkAuth , multerUpload.single('image'), async (req, res) => {
     const uploadParams = {
         Bucket: 'icollection',
-        Key: req.files.file.name,
-        Body: Buffer.from(req.files.file.data),
-        ContentType: req.files.file.mimetype,
+        Key: req.file.originalname,
+        Body: req.file.buffer,
+        ContentType: req.file.mimetype,
         ACL: 'public-read'
     }
     s3.upload(uploadParams, (err, data) => {
-        err && console.log("Error", err)
-        data && console.log("Upload success", data.Location)
-
+        err ? res.status(500).send(err) : res.json({
+            image_url: data.Location
+        })
     })
-    res.send("OK")
 })
 
 

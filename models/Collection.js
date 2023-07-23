@@ -11,6 +11,10 @@ const CollectionSchema = mongoose.Schema({
         required: true
     },
     imageUrl: String,
+    tags: {
+        type: Array,
+        default: []
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
